@@ -16,7 +16,7 @@ from aiogram.utils.markdown import hbold
 import asyncio
 
 # بارگذاری توکن
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("7652704164:AAF4conisn2jicpdlHGYyRylb4TZpkMgXbI")
 
 # بارگذاری اطلاعات
 with open("config.json", encoding="utf-8") as f:
