@@ -1,11 +1,9 @@
-
 import logging
 import os
 from aiogram import Bot, Dispatcher, executor, types
 
-API_TOKEN = os.getenv("BOT_TOKEN")
+API_TOKEN = os.getenv("BOT_TOKEN")  # توکن رباتت رو اینجا بذار یا از محیط بخون
 
-# Admin and manager IDs
 ADMINS = [5993860770]
 MANAGERS = [7935344235, 5993860770]
 
@@ -14,30 +12,22 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-# Users memory
 user_data = {}
 
-# Start
 @dp.message_handler(commands=['start'])
 async def welcome(msg: types.Message):
     kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
     kb.add("🛒 خرید اشتراک", "📚 آموزش اتصال", "💬 پشتیبانی")
-    await msg.answer("🎉 به ربات Dragon VPN خوش آمدید!
-از منوی زیر استفاده کنید.", reply_markup=kb)
+    await msg.answer("🎉 به ربات Dragon VPN خوش آمدید!\nاز منوی زیر استفاده کنید.", reply_markup=kb)
 
-# Support
 @dp.message_handler(lambda m: m.text == "💬 پشتیبانی")
 async def support(msg: types.Message):
-    await msg.answer("برای پشتیبانی به آیدی زیر پیام دهید:
-@Psycho_remix1")
+    await msg.answer("برای پشتیبانی به آیدی زیر پیام دهید:\n@Psycho_remix1")
 
-# Guide
 @dp.message_handler(lambda m: m.text == "📚 آموزش اتصال")
 async def guide(msg: types.Message):
-    await msg.answer("📎 آموزش اتصال:
-https://t.me/amuzesh_dragonvpn")
+    await msg.answer("📎 آموزش اتصال:\nhttps://t.me/amuzesh_dragonvpn")
 
-# Plans
 PLANS = {
     "plan_1": ("تک کاربره", "1 ماه", "85,000"),
     "plan_2": ("دو کاربره", "1 ماه", "115,000"),
@@ -78,10 +68,9 @@ async def receipt(msg: types.Message):
     user_id = msg.from_user.id
     for admin in MANAGERS:
         await bot.send_message(admin, f"📥 فیش جدید از کاربر {user_id}")
-        await bot.forward_message(admin, admin_chat_id=admin, from_chat_id=msg.chat.id, message_id=msg.message_id)
+        await bot.forward_message(admin, from_chat_id=msg.chat.id, message_id=msg.message_id)
     await msg.reply("✅ فیش شما دریافت شد و در حال بررسی است. تا ۲ ساعت آینده پاسخ داده می‌شود.")
 
-# Admin Panel
 @dp.message_handler(commands=['admin'])
 async def admin_panel(msg: types.Message):
     if msg.from_user.id in MANAGERS:
@@ -107,8 +96,7 @@ async def get_config_text(msg: types.Message):
 @dp.message_handler(lambda m: user_data.get(m.from_user.id, {}).get("step") == "get_config")
 async def send_config(msg: types.Message):
     uid = user_data[msg.from_user.id]["target_id"]
-    await bot.send_message(uid, f"📥 کانفیگ شما:
-{msg.text}")
+    await bot.send_message(uid, f"📥 کانفیگ شما:\n{msg.text}")
     await msg.answer("✅ کانفیگ ارسال شد.")
     user_data.pop(msg.from_user.id)
 
