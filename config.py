@@ -1,2 +1,2 @@
-BOT_TOKEN = "توکن_ربات_را_اینجا_قرار_دهید"
+BOT_TOKEN = "7877238074:AAFNYmZcdKF_cGDCqcJs3orbRUPzivc3WOw"
 ADMINS = [7935344235, 5993860770]
